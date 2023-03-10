@@ -3,12 +3,14 @@ const { response } = require('express')
 let express = require('express')
 let mongoose = require('mongoose')
 let song = require('./song')
+let cors = require('cors')
 
 // create express app
 let app = express()
 
 // enable express to work with JSON type request body
 app.use(express.json())
+app.use(cors())
 
 let PORT = 8888
 
