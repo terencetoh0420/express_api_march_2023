@@ -128,6 +128,41 @@ app.get("/get/song/:myid",(request,response)=>{
     })
 })
 
+// delete song by id
+app.delete("/delete/song/:myid",(request,response)=>{
+    // let id = request.params
+    song.findByIdAndDelete(request.params.myid)
+    .then((data)=>{
+        response.json({
+            "status": "deleted",
+            "data": data
+        })
+    })
+    .catch((error)=>{
+        console.log(error)
+    })
+})
+
+// update song by id
+app.put("/update/song/:id",(request,response)=>{
+    // let id = request.params
+    console.log("id received " + request.params.id);
+    console.log("request ");
+    console.log(request.body);
+    // updateOne(which, what)
+    song.updateOne({_id: request.params.id},{$set:{video_id:request.body.video_id,views: request.body.views, likes: request.body.likes}})
+    .then((data)=>{
+        response.json({
+            "status": "updated",
+            "data": data
+        })
+    })
+    .catch((error)=>{
+        console.log(error);
+    })
+})
+
+
 app.listen(PORT,()=>{
     console.log("Listenninng on port"+PORT);
 })
